@@ -16,11 +16,13 @@ httpServer.listen(PORT, () => {
 });
 
 ws.on('request', (r) => {
-    connection = r.accept();
-    connection.on('open', (e) => {
-        console.log(`connection opened`)
+    console.log('new request received');
+    connection = r.accept(null, r.origin);
+    
+    connection.on('open', () => {
+        console.log(`connection opened`) 
     })
-    connection.on('close', (e) => {
+    connection.on('close', () => {
         console.log('connection closed');
     })
     connection.on('message', (m) => {

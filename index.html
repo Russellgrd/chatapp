@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="chatHome">
+        <div class="chatHome-messagesBox"></div>
+        <input type="text" class="chatHome-input">
+        <button class="submitButton">submit</button>
+    </div>
+
+<script>
+    function init() {
+
+        let messagesBox = document.querySelector('.chatHome-messagesBox');
+        let inputBox = document.querySelector('.chatHome-input');
+        let button = document.querySelector('.submitButton');
+
+        let webSocket = new WebSocket('ws://localhost:3000');
+        webSocket.onopen = (e) => {
+            messagesBox.innerHTML += `<p>connection established to ${webSocket.url}</p>`;
+        }
+        webSocket.onclose = (e) => {
+            messagesBox.innerHTML += `<p>connection closed to ${webSocket.url}</p>`;
+        }
+        webSocket.onmessage = (message) => {
+            messagesBox.innerHTML += `message from user: ${message.data}`;
+        }
+
+        button.addEventListener('click', (e) => {
+                e.preventDefault();
+                webSocket.send(inputBox.value);
+        })
+    }
+
+    init();
+
+</script>
+
+</body>
+</html>
