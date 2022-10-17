@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
     <title>Document</title>
 </head>
 <body>
+
+    <form class="nameForm">
+        <input class="nameInput" id="name" type="text">
+        <label for="name">chat name</label>
+        <button class="nameBtn">submit</button>
+    </form>
+
     <div class="chatHome">
         <div class="chatHome-messagesBox"></div>
         <input type="text" class="chatHome-input">
@@ -14,6 +22,9 @@
     </div>
 
 <script>
+
+
+
     function init() {
 
         let messagesBox = document.querySelector('.chatHome-messagesBox');
@@ -28,7 +39,7 @@
             messagesBox.innerHTML += `<p>connection closed to ${webSocket.url}</p>`;
         }
         webSocket.onmessage = (message) => {
-            messagesBox.innerHTML += `message from user: ${message.data}`;
+            messagesBox.innerHTML += `<p>message from user: ${message.data}</p>`;
         }
 
         button.addEventListener('click', (e) => {
@@ -37,7 +48,27 @@
         })
     }
 
-    init();
+    let nameBtn = document.querySelector('.nameBtn');
+    let form = document.querySelector('.nameForm');
+    let input = document.querySelector('.nameInput');
+    nameBtn.addEventListener('click',userSession);
+
+    async function userSession(e) {
+        e.preventDefault();
+            console.log('name value is', input.value);
+            let resp = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({name:input.value})
+            })
+         
+            let data = await resp.json(); 
+            document.cookie = `chat_name=${data.name}`;
+            document.cookie = `chat_token=${data.token}`;
+            console.log('cookies are set');
+        }
 
 </script>
 
