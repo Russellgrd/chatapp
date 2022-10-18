@@ -23,10 +23,7 @@
 
 <script>
 
-
-
     function init() {
-
         let messagesBox = document.querySelector('.chatHome-messagesBox');
         let inputBox = document.querySelector('.chatHome-input');
         let button = document.querySelector('.submitButton');
@@ -68,6 +65,7 @@
             document.cookie = `chat_name=${data.name}`;
             document.cookie = `chat_token=${data.token}`;
             console.log('cookies are set');
+            init();
         }
 
 </script>
