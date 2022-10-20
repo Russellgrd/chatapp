@@ -9,6 +9,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #000;
 }
 
 .chatHome{
@@ -18,10 +19,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: aqua;
 }
 .chatHome-messagesBox{
-    border: 2px solid orangered;
+    border: 2px solid #fd7ae59d;
+    color: #fd7ae5;
     text-align: center;
     height: 50%;
     width: 80%;
@@ -30,7 +31,7 @@ body {
 }
 .chatHome-input{
     margin-top: 1rem;
-    border: 2px solid rgba(255, 68, 0, 0.602);
+    border: 2px solid #fd7ae59d;
     width: 50%;
     height: 3rem;
 }
@@ -46,7 +47,7 @@ body {
     margin: 1rem;
     width: 30%;
     text-align: center;
-    background-color: dodgerblue;
+    background-color: rgb(255, 255, 255);
     height: 10%;
 }
 
@@ -54,4 +55,20 @@ body {
     width: 50%;
     height: 2rem;
     
+}
+
+.chatHome-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 15%;
+    color: #fd7ae5;
+    background-color: #000;
+    text-align: center;
+}
+
+.chatHome-banner-heading{
+    font-size: 4rem;
 }

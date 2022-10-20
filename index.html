@@ -13,6 +13,9 @@
 
     <div class="chatHome">
 
+        <div class="chatHome-banner">
+            <h3 class="chatHome-banner-heading">Nostalgia chat</h3>
+        </div>
 
         <form class="nameForm">
             <input class="nameInput" id="name" type="text">
@@ -48,22 +51,24 @@
         }
 
         inputBox.addEventListener('keydown', (e) => {
-            if (e.keyCode === 13) {
-            button.click();
+            if(e.keyCode == 13) {
+                button.click();
             }
+  
         });
 
         button.addEventListener('click', (e) => {
-                let time_stamp = new Date().toLocaleTimeString();
-                e.preventDefault();
+            let time_stamp = new Date().toLocaleTimeString();
+            e.preventDefault();
+            if(inputBox.value.length >= 1) {
                 webSocket.send(`${username} ${time_stamp}: ${inputBox.value}`);
                 setTimeout(() => {
                     messagesBox.scrollTop = messagesBox.scrollHeight;
                     inputBox.value = "";
-
-                },10);
-            })
-        }
+                },100)
+            }
+        })
+    }
 
     let nameBtn = document.querySelector('.nameBtn');
     let form = document.querySelector('.nameForm');
