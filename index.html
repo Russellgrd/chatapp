@@ -9,13 +9,19 @@
 </head>
 <body>
 
-    <form class="nameForm">
-        <input class="nameInput" id="name" type="text">
-        <label for="name">chat name</label>
-        <button class="nameBtn">submit</button>
-    </form>
+
 
     <div class="chatHome">
+
+
+        <form class="nameForm">
+            <input class="nameInput" id="name" type="text">
+            <label for="name">chat name</label>
+            <button class="nameBtn">submit</button>
+        </form>
+
+
+        <p class="chathome-userName"></p>
         <div class="chatHome-messagesBox"></div>
         <input type="text" class="chatHome-input">
         <button class="submitButton">submit</button>
@@ -23,10 +29,12 @@
 
 <script>
 
-    function init() {
+    function init(username) {
         let messagesBox = document.querySelector('.chatHome-messagesBox');
         let inputBox = document.querySelector('.chatHome-input');
         let button = document.querySelector('.submitButton');
+        let userNameTag = document.querySelector('.chathome-userName');
+        userNameTag.value = username;
 
         let webSocket = new WebSocket('ws://localhost:3000');
         webSocket.onopen = (e) => {
@@ -36,14 +44,26 @@
             messagesBox.innerHTML += `<p>connection closed to ${webSocket.url}</p>`;
         }
         webSocket.onmessage = (message) => {
-            messagesBox.innerHTML += `<p>message from user: ${message.data}</p>`;
+            messagesBox.innerHTML += `<p>${message.data}</p>`;
         }
 
+        inputBox.addEventListener('keydown', (e) => {
+            if (e.keyCode === 13) {
+            button.click();
+            }
+        });
+
         button.addEventListener('click', (e) => {
+                let time_stamp = new Date().toLocaleTimeString();
                 e.preventDefault();
-                webSocket.send(inputBox.value);
-        })
-    }
+                webSocket.send(`${username} ${time_stamp}: ${inputBox.value}`);
+                setTimeout(() => {
+                    messagesBox.scrollTop = messagesBox.scrollHeight;
+                    inputBox.value = "";
+
+                },10);
+            })
+        }
 
     let nameBtn = document.querySelector('.nameBtn');
     let form = document.querySelector('.nameForm');
@@ -65,8 +85,9 @@
             document.cookie = `chat_name=${data.name}`;
             document.cookie = `chat_token=${data.token}`;
             console.log('cookies are set');
-            init();
-        }
+            init(data.name);
+            
+    }
 
 </script>
 

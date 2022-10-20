@@ -18,6 +18,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: aqua;
 }
 .chatHome-messagesBox{
     border: 2px solid orangered;
@@ -35,4 +36,22 @@ body {
 }
 .submitButton{
     margin-top: 1rem;
+}
+
+.nameForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1rem;
+    width: 30%;
+    text-align: center;
+    background-color: dodgerblue;
+    height: 10%;
+}
+
+.nameBtn {
+    width: 50%;
+    height: 2rem;
+    
 }
