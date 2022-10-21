@@ -54,8 +54,7 @@ ws.on('request', (r) => {
         connection.send(`user ${newUserConnection} has entered the chat`);
     })
     connection.on('open', (c) => {
-         console.log('open connection:', c)
-         console.log('we are here');
+         console.log('connection opened');
     })
 
     connection.on('close', (c) => {
