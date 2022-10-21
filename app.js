@@ -36,7 +36,7 @@ const httpServer = http.createServer(async (req, res) => {
         res.writeHead(400, {
             'Content-Type':'application/json'
         })
-        res.end(JSON.stringify({"error":"error Russell"}))
+        res.end(JSON.stringify({"error":"There was an error attempting to connect, please try again"}))
     }
 });
 
@@ -56,11 +56,13 @@ ws.on('request', (r) => {
     connection.on('open', (c) => {
          console.log('open connection:', c)
          console.log('we are here');
-
     })
 
-    connection.on('close', () => {
+    connection.on('close', (c) => {
         console.log('connection closed');
+        connectionsArray.forEach((connection) => {
+            connection.send('a user has left the room');
+        })
     })
     connection.on('message', (m) => {
         console.log(`message received from client: ${m.utf8Data}`);

@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 body {
@@ -13,6 +16,7 @@ body {
 }
 
 .chatHome{
+    padding: .5rem;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -47,7 +51,7 @@ body {
     margin: 1rem;
     width: 30%;
     text-align: center;
-    background-color: rgb(255, 255, 255);
+    background-color: #fd7ae5;
     height: 10%;
 }
 
@@ -71,4 +75,46 @@ body {
 
 .chatHome-banner-heading{
     font-size: 4rem;
+}
+
+.btn_std {
+    border: none;
+    width: 4rem;
+    height: 2rem;
+    background-color: #000;
+    color: #fd7ae5;
+    border: 1px solid #fd7ae5;
+}
+
+.btn_std:hover {
+    background-color: rgba(0, 0, 0, 0.601);
+}
+
+.btn_std:active {
+    color: #ff3ddb;
+    border: 1px solid #ff3ddb;
+}
+
+@media only screen and (max-width: 850px) {
+    .chatHome{
+       
+    }
+    .chatHome-banner-heading{
+        font-size: 2.5rem;
+    }
+
+    .nameForm {
+        width: 80vw;
+        height: auto;
+        padding: 10px;
+    }
+
+    .chatHome-input{
+        margin-top: 1rem;
+        border: 2px solid #fd7ae59d;
+        width: 75%;
+        height: 3rem;
+    }
+    
+
 }

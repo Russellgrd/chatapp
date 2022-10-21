@@ -9,8 +9,6 @@
 </head>
 <body>
 
-
-
     <div class="chatHome">
 
         <div class="chatHome-banner">
@@ -20,14 +18,14 @@
         <form class="nameForm">
             <input class="nameInput" id="name" type="text">
             <label for="name">chat name</label>
-            <button class="nameBtn">submit</button>
+            <button class="nameBtn btn_std">submit</button>
         </form>
 
 
         <p class="chathome-userName"></p>
         <div class="chatHome-messagesBox"></div>
         <input type="text" class="chatHome-input">
-        <button class="submitButton">submit</button>
+        <button class="submitButton btn_std">submit</button>
     </div>
 
 <script>
@@ -38,14 +36,16 @@
         let button = document.querySelector('.submitButton');
         let userNameTag = document.querySelector('.chathome-userName');
         userNameTag.value = username;
-
         let webSocket = new WebSocket('ws://localhost:3000');
+
         webSocket.onopen = (e) => {
             messagesBox.innerHTML += `<p>connection established to ${webSocket.url}</p>`;
         }
+
         webSocket.onclose = (e) => {
             messagesBox.innerHTML += `<p>connection closed to ${webSocket.url}</p>`;
         }
+
         webSocket.onmessage = (message) => {
             messagesBox.innerHTML += `<p>${message.data}</p>`;
         }
@@ -54,7 +54,6 @@
             if(e.keyCode == 13) {
                 button.click();
             }
-  
         });
 
         button.addEventListener('click', (e) => {
@@ -78,20 +77,26 @@
     async function userSession(e) {
         e.preventDefault();
             console.log('name value is', input.value);
-            let resp = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify({name:input.value})
-            })
-         
-            let data = await resp.json(); 
-            document.cookie = `chat_name=${data.name}`;
-            document.cookie = `chat_token=${data.token}`;
-            console.log('cookies are set');
-            init(data.name);
+            if(input.value.length >= 3) {
+                let resp = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({name:input.value})
+                })
+            
+                let data = await resp.json(); 
+                document.cookie = `chat_name=${data.name}`;
+                document.cookie = `chat_token=${data.token}`;
+                console.log('cookies are set');
+                init(data.name);
+            } else {
+                alert('username should be atleast 3 characters');
+            } 
     }
+
+
 
 </script>
 
