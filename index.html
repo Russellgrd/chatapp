@@ -35,7 +35,9 @@
         let button = document.querySelector('.submitButton');
         let userNameTag = document.querySelector('.chathome-userName');
         userNameTag.value = username;
-        let webSocket = new WebSocket('ws://chatchatters.herokuapp.com');
+
+        let webSocket = new WebSocket('wss://chatchatters.herokuapp.com');
+        console.log('websocket obj is', webSocket);
 
         webSocket.onopen = (e) => {
             messagesBox.innerHTML += `<p>connection established to ${webSocket.url}</p>`;

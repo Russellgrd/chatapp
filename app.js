@@ -45,11 +45,13 @@ let ws = new WebSocketServer({
 });
 
 let newUserConnection = '';
-
+let connectionsArray;
 ws.on('request', (r) => {
-    let connectionsArray = ws.connections;
+    connectionsArray = ws.connections;
     console.log('new request received');
     let connection = r.accept(null, r.origin);
+    let uniqueUserId = connection.url + Math.random();
+    console.log(uniqueUserId);
     connectionsArray.forEach((connection) => {
         connection.send(`user ${newUserConnection} has entered the chat`);
     })
